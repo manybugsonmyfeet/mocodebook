@@ -1,0 +1,20 @@
+struct Edge {
+  int s, t, w;
+  bool operator < (const Edge &rhs) const { return w < rhs.w; }
+};
+void Kruskal() {
+  int cost = 0;
+  vector<Edge> E;
+  init(); // 初始化並查集
+  sort(E.begin(),E.end()); // 依照權重排序邊
+  for (auto it : E) {
+    // 邊的兩側是不是在同一棵樹上
+    it.s = Find(it.s);
+    it.t = Find(it.t);
+    if (it.s == it.t)
+      continue;
+    // 如果不是的話，合併兩棵樹
+    cost += it.w; // cost 用來記錄最小生成樹的權重和
+    Union(it.s, it.t);
+  }
+}

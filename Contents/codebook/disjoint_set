@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int fa[100];
+int size[100];
+
+void init(){
+ for(int i = 0; i < 100; i++){
+  fa[i] = i;
+  size[i] = 1;
+ }
+}
+int findr(int x){
+ if(x == fa[x]){
+  return x;
+ }
+ else{
+  return fa[x] = findr(fa[x]);
+ }
+}
+
+void unite(int x, int y){
+ x = findr(x);
+ y = findr(y);
+        if(x == y){
+         return;
+        }
+ if(size[x] >= size[y]){
+  fa[y] = x;
+  size[x] += size[y];
+ }
+ else{
+  fa[x] = y;
+  size[y] += size[x];
+ }
+}

@@ -1,0 +1,36 @@
+vector<int> G[MXV];
+
+bool dfs(int u)
+{
+    int leaf_cnt = 0; //記錄葉節點個數
+    for (auto v:G[u])
+    {
+        if((int)G[v].size() == 0) // 葉節點
+        {
+            ++leaf_cnt;
+        }else if(!dfs(v)){
+            return false;
+        }
+    }
+    return (leaf_cnt >= 3);
+}
+
+int main()
+{
+    IOS;
+    int n;
+    cin >> n;
+    for (int i = 2, j; i <= n; ++i)
+    {
+        cin >> j;
+        G[j].emplace_back(i);
+    }
+    if(dfs(1))
+    {
+        cout << "Yes\n";
+    }
+    else
+    {
+        cout << "No\n";
+    }
+}

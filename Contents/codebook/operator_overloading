@@ -1,0 +1,7 @@
+bool operator < (const item& rhs) const{
+
+    // item代表左邊，rhs代表右邊
+    // return true 如果左右邊不需交換
+    // return false 如果左右邊要交換
+
+}

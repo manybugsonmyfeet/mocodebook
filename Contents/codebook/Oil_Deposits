@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int MXN = 105;
+using PII = pair<int, int>;
+#define MP make_pair
+string s[MXN];
+int dir[8][2] = {{0, 1}, {0, -1}, {1, 0},   {-1, 0},
+                 {1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
+int m, n;
+
+void bfs(int _x, int _y)
+{
+    s[_x][_y] = '*';
+    queue<PII> q;
+    q.push(MP(_x, _y));
+    while (!q.empty())
+    {
+        PII cur = q.front();
+        q.pop();
+        for (int i = 0; i < 8; ++i)
+        {
+            int x = cur.first + dir[i][0];
+            int y = cur.second + dir[i][1];
+            if (x < 0 || x >= m || y < 0 || y >= n || s[x][y] == '*')
+            // 判斷 x 和 y 有沒有在邊界裡面
+            // s[x][y] == '*' 判斷要寫在最後面
+            {
+                continue;
+            }
+            s[x][y] = '*';
+            q.push(MP(x, y));
+        }
+    }
+}
+
+int main()
+{
+    while (cin >> m >> n, m)
+    {
+        int ans = 0;
+        for (int i = 0; i < m; ++i)
+            cin >> s[i];
+        for (int i = 0; i < m; ++i)
+        {
+            for (int j = 0; j < n; ++j)
+            {
+                if (s[i][j] == '@')
+                {
+                    bfs(i, j);
+                    ++ans;
+                }
+            }
+        }
+        cout << ans << '\n';
+    }
+}
